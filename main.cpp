@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
       std::cout << "EUR: " << eur->value << std::endl;
     } else if (argc == 3) {
       std::string currency_flag = argv[1];
-      double value = atof(argv[2]);
+      double value = strtod(argv[2], nullptr);
       std::string currency;
       double result = 0;
 
@@ -33,6 +33,9 @@ int main(int argc, char **argv) {
       } else if (currency_flag == "--eur") {
         currency = "EUR";
         result = eur->value * value;
+      } else {
+        std::cerr << "Unknown currency code\n";
+        return -1;
       }
 
       std::cout << "[" << currency << "] " << value << " = [RUB] " << result
