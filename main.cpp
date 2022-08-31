@@ -1,15 +1,21 @@
 #include <iostream>
-#include <curlpp/Options.hpp> // for exceptions
-
 #include "src/http_client.h"
+#include "src/currency_parser.h"
+
+#include <curlpp/Options.hpp> // for exceptions
 
 int main() {
   try {
     HttpClient http;
 
-    auto currency_json = http.Get("https://www.cbr-xml-daily.ru/daily_json.js");
+    std::string raw_json = http.Get("https://www.cbr-xml-daily.ru/daily_json.js");
+    CurrencyParser parser(raw_json.c_str());
 
-    std::cout << currency_json << std::endl;
+    Currency *usd = parser.GetUsd();
+    std::cout << usd->value << std::endl;
+
+    Currency *eur = parser.GetEur();
+    std::cout << eur->value << std::endl;
 
   } catch (curlpp::RuntimeError &e) {
     std::cerr << e.what() << std::endl;
