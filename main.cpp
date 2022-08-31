@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "src/http_client.h"
 #include "src/currency_parser.h"
@@ -13,7 +13,6 @@ int main(int argc, char **argv) {
     std::string raw_json = http.Get(
       "https://www.cbr-xml-daily.ru/daily_json.js");
     CurrencyParser parser(raw_json.c_str());
-
 
     Currency *usd = parser.GetUsd();
     Currency *eur = parser.GetEur();
