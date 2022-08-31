@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(libs/curlpp-0.8.1)
 
-add_executable(currencier main.cpp)
+add_executable(currencier main.cpp src/http_client.cc src/http_client.h)
 
 target_link_libraries(currencier curlpp)
 
